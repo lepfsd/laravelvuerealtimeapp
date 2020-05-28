@@ -9,6 +9,16 @@ use App\Reply;
 
 class LikeController extends Controller
 {
+
+    /**
+     * Create a new LikeController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('JWT');
+    }
  
     public function litkeIt(Reply $reply)
     {
