@@ -9,6 +9,7 @@ use App\Category;
 
 class Question extends Model
 {
+    protected $fillable = array('title', 'slug', 'body', 'category_id', 'user_id');
     
     public function user() 
     {
@@ -23,6 +24,16 @@ class Question extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getRoutekeyName()
+    {
+        return 'slug';
+    } 
+
+    public function getPathAttribute()
+    {
+        return asset("api/question/$this->slug");
     }
 
 }
