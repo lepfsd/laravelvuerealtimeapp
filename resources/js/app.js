@@ -19,6 +19,9 @@ window.User = User
 User.loggedIn()
 
 
+Window.EventBus = new Vue();
+
+
 
 
 /**

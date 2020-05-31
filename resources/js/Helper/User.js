@@ -32,6 +32,7 @@ class User
 
     loggedIn() {
         return this.hasToken()
+        window.location = '/forum'
     } 
 
     logout(){
