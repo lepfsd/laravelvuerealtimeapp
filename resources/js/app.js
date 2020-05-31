@@ -10,7 +10,16 @@ window.Vue = require('vue');
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+
 Vue.use(Vuetify);
+
+import User from './Helper/User'
+window.User = User
+
+User.loggedIn()
+
+
+
 
 /**
  * The following block of code may be used to automatically register your

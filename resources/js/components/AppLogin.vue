@@ -3,8 +3,7 @@
     <v-container>
       <v-row>
         <v-col
-          cols="12"
-          md="4"
+          md="6"
         >
           <v-text-field
             v-model="form.email"
@@ -15,8 +14,7 @@
         </v-col>
 
         <v-col
-          cols="12"
-          md="4"
+          md="6"
         >
           <v-text-field
             v-model="form.password"
@@ -26,9 +24,20 @@
           ></v-text-field>
         </v-col>
 
-        <div class="my-2">
-        <v-btn large color="green" type="submit">Login</v-btn>
-      </div>
+      </v-row>
+
+      <v-row>
+
+        <div class="my-2 mr-4">
+          <v-btn large color="green" type="submit">Login</v-btn>
+        </div>
+
+        <div class="my-2 mr-4">
+          <router-link to="/signup">
+            <v-btn  large color="green">Signup</v-btn>
+          </router-link>
+        </div>
+        
       </v-row>
     </v-container>
   </v-form>
@@ -46,9 +55,8 @@ export default {
     },
     methods: {
         login(){
-            axios.post('/api/auth/login', this.form)
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+            User.login(this.form)
+            this.$router.push({name: 'forum'})
         }
     }
 }
