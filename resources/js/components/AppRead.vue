@@ -1,5 +1,5 @@
 <template>
-    <app-showquestion :data=question ></app-showquestion>
+    <app-showquestion :data=question v-if="question" ></app-showquestion>
 </template>
 
 <script>

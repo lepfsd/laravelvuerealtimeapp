@@ -6,6 +6,7 @@ use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\QuestionResource;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -17,7 +18,7 @@ class QuestionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['index', 'show']]);
+        //$this->middleware('JWT', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -48,9 +49,8 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        
-        Question::create($request->all());
-        return response('created', Response::HTTP_OK);
+        $question = auth()->user()->question()->create($request->all());
+        return response(new QuestionResource($question), Response::HTTP_OK);
     }
 
     /**
@@ -61,7 +61,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return  new QuestionResource($question);
+        return new QuestionResource($question);
     }
 
     /**

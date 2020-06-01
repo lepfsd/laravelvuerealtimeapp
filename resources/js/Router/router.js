@@ -8,6 +8,7 @@ import AppSignup  from '../components/AppSignup.vue'
 import AppForum  from '../components/AppForum.vue'
 import AppLogout  from '../components/AppLogout.vue'
 import AppRead  from '../components/AppRead.vue'
+import AppCreate  from '../components/AppCreate.vue'
 
 const routes = [
     { path: '/login', component: AppLogin },
@@ -15,6 +16,7 @@ const routes = [
     { path: '/signup', component: AppSignup },
     { path: '/forum', component: AppForum, name: 'forum' },
     { path: '/question/:slug', component: AppRead, name: 'read' },
+    { path: '/ask', component: AppCreate },
 ]
 
 

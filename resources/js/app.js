@@ -13,11 +13,14 @@ import Vuetify from 'vuetify';
 
 Vue.use(Vuetify);
 
+
 import User from './Helper/User'
+import md from 'marked'
+window.md = md
+
 window.User = User
 
-User.loggedIn()
-
+console.log(User.loggedIn())
 
 Window.EventBus = new Vue();
 

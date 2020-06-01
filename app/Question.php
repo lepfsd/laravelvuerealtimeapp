@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Reply;
 use App\Category;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -34,6 +35,15 @@ class Question extends Model
     public function getPathAttribute()
     {
         return "/question/$this->slug";
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function($question) {
+            $question->slug = Str::slug($question->title, '-');
+        });
+
     }
 
 }

@@ -7,12 +7,12 @@
                         {{ data.title }}
                     </router-link> 
                 </h3>
-                <h6 class="headline mb-0">{{ data.user }} said {{ data.created_at }}</h6>
+                <h6 >{{ data.user }} said {{ data.created_at }}</h6>
             </div>
         </v-card-title>
-        <v-card-text>
+        <v-card-subtitle>
             {{ data.body }}
-        </v-card-text>
+        </v-card-subtitle>
     </v-card>
 </template>
 

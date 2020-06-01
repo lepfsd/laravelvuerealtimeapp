@@ -10,8 +10,9 @@
 </head>
 <body>
     <div id="app">
-      <app-home></app-home>  
-      
+      <v-app>
+        <app-home></app-home> 
+      </v-app>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
