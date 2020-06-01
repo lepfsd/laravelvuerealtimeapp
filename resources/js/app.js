@@ -15,8 +15,7 @@ Vue.use(Vuetify);
 
 
 import User from './Helper/User'
-import md from 'marked'
-window.md = md
+
 
 window.User = User
 

@@ -12,6 +12,14 @@
                 <v-btn class="teal">5 replies</v-btn>
             </v-card-title>
             <v-card-text v-html="body" ></v-card-text>
+            <v-card-actions v-if="own">
+                <v-btn class="ma-2" color="primary" dark>
+                    edit
+                </v-btn>
+                <v-btn class="ma-2" color="red" dark @click="destroy">
+                    delete
+                </v-btn>
+            </v-card-actions>
         </v-container>
     </v-card>
 </template>
@@ -20,9 +28,22 @@
 
 export default {
     props: ['data'],
+    data() {
+        return {
+            own: User.own(this.data.user_id)
+        }
+    },
     computed: {
+        
         body(){
-            return md.parse(this.data.body)
+            return this.data.body
+        }
+    },
+    methods: {
+        destroy() {
+            axios.delete(`/api/question/${this.data.slug}`)
+                .then(res => this.$router.push('/forum'))
+                .catch(error => console.log(error.response.data))
         }
     }
 }
