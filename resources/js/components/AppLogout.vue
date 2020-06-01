@@ -11,6 +11,8 @@
                     this.$router.push({name: 'forum'})
                 })
                 .catch(error => this.errors = error.response.data.errors)
+                User.logout()
+                this.$router.push({name: 'forum'})
             
             
         }
