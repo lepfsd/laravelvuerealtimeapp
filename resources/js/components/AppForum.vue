@@ -7,7 +7,9 @@
 
                     </app-question>
                 </v-flex>
-                sidebar
+                <v-flex xs4>
+                    <app-sidebar></app-sidebar>
+                </v-flex>
             </v-layout>
         </v-container>
     </div>
@@ -16,10 +18,12 @@
 <script>
 
 import AppQuestion from './AppQuestion'
+import AppSidebar from './AppSidebar'
 
 export default {
     components: { 
-        AppQuestion
+        AppQuestion,
+        AppSidebar
     },
     data() {
         return {
