@@ -12,7 +12,8 @@ import AppEditquestion from './AppEditquestion'
 
 export default {
     components: {
-        AppShowquestion, AppEditquestion
+        AppShowquestion, 
+        AppEditquestion
     },
     data() {
         return {

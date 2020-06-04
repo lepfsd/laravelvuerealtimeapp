@@ -32,8 +32,14 @@
 </template>
 
 <script>
+
+import VueSimplemde from 'vue-simplemde'
+
 export default {
     props: ['data'],
+    components: {
+      VueSimplemde
+    },
     data() {
         return {
             form: {

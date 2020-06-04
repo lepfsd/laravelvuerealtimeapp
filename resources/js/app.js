@@ -21,7 +21,8 @@ window.User = User
 
 console.log(User.loggedIn())
 
-Window.EventBus = new Vue();
+
+window.EventBus = new Vue();
 
 
 
