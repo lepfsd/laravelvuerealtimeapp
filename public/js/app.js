@@ -2059,13 +2059,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         name: null
       },
-      categories: {}
+      categories: {},
+      editSlug: null
     };
   },
   created: function created() {
@@ -2076,17 +2078,51 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       return console.log(error.response.data);
     });
+
+    if (!User.admin()) {
+      this.$router.push('/forum');
+    }
   },
   methods: {
-    create: function create() {
+    submit: function submit() {
+      this.editSlug ? this.update() : this.create();
+    },
+    destroy: function destroy(slug, index) {
       var _this2 = this;
 
-      axios.post('/api/category', this.form).then(function (res) {
-        return _this2.$router.push({
-          name: 'forum'
-        });
+      axios["delete"]("/api/category/".concat(slug)).then(function (res) {
+        return _this2.categories.splice(index, 1);
       })["catch"](function (error) {
-        return _this2.errors = error.response.data.error;
+        return console.log(error.response);
+      });
+    },
+    edit: function edit(index) {
+      this.form.name = this.categories[index].name;
+      this.editSlug = this.categories[index].slug;
+      this.categories.splice(index, 1);
+    },
+    create: function create() {
+      var _this3 = this;
+
+      axios.post('/api/category', this.form).then(function (res) {
+        _this3.categories.unshift(res.data); //this.$router.push({name: 'category'})
+
+
+        _this3.form.name = null;
+      })["catch"](function (error) {
+        return _this3.errors = error.response.data.error;
+      });
+    },
+    update: function update() {
+      var _this4 = this;
+
+      axios.patch("/api/category/".concat(this.editSlug), this.form).then(function (res) {
+        _this4.categories.unshift(res.data); //this.$router.push({name: 'category'})
+
+
+        _this4.form.name = null;
+      })["catch"](function (error) {
+        return _this4.errors = error.response.data.error;
       });
     }
   }
@@ -2765,7 +2801,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Category',
         to: '/category',
-        show: User.loggedIn()
+        show: User.admin()
       }]
     };
   }
@@ -57008,7 +57044,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.create($event)
+                          return _vm.submit($event)
                         }
                       }
                     },
@@ -57049,17 +57085,29 @@ var render = function() {
                               "div",
                               { staticClass: "my-2 mr-4" },
                               [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      large: "",
-                                      color: "teal",
-                                      type: "submit"
-                                    }
-                                  },
-                                  [_vm._v("create")]
-                                )
+                                _vm.editSlug
+                                  ? _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          large: "",
+                                          color: "teal",
+                                          type: "submit"
+                                        }
+                                      },
+                                      [_vm._v("Update")]
+                                    )
+                                  : _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          large: "",
+                                          color: "teal",
+                                          type: "submit"
+                                        }
+                                      },
+                                      [_vm._v("Create")]
+                                    )
                               ],
                               1
                             )
@@ -57096,7 +57144,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _vm._l(_vm.categories, function(category) {
+                      _vm._l(_vm.categories, function(category, index) {
                         return _c(
                           "v-list",
                           { key: category.id },
@@ -57124,6 +57172,11 @@ var render = function() {
                                           text: "",
                                           small: "",
                                           color: "primary"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.edit(index)
+                                          }
                                         }
                                       },
                                       [_vm._v("edit")]
@@ -57142,6 +57195,11 @@ var render = function() {
                                           text: "",
                                           small: "",
                                           color: "error"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.destroy(category.slug)
+                                          }
                                         }
                                       },
                                       [_vm._v("delete")]
@@ -115315,6 +115373,11 @@ var User = /*#__PURE__*/function () {
     key: "own",
     value: function own(id) {
       return this.id() == id;
+    }
+  }, {
+    key: "admin",
+    value: function admin() {
+      return this.id() == 12;
     }
   }]);
 

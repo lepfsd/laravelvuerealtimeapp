@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->name, '-');
         $category->save();
 
-        return response('created', Response::HTTP_OK);
+        return response(new CategoryResource($category), Response::HTTP_OK);
     }
 
     /**
@@ -95,7 +95,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name, '-')
         ]);
         
-        return response('updated', Response::HTTP_OK);
+        return response(new CategoryResource($category), Response::HTTP_OK);
 
     }
 
