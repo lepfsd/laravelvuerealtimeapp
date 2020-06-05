@@ -2388,9 +2388,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     login: function login() {
       User.login(this.form);
-      this.$router.push({
-        name: 'forum'
-      });
     }
   }
 });
@@ -2406,28 +2403,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    var _this = this;
-
-    axios.post('/api/auth/logout', null).then(function (res) {
-      User.logout();
-
-      _this.$router.push({
-        name: 'forum'
-      });
-    })["catch"](function (error) {
-      return _this.errors = error.response.data.errors;
-    });
-    User.logout();
-    this.$router.push({
-      name: 'forum'
-    });
+    EventBus.$emit('logout');
+    /*axios.post('/api/auth/logout', null)
+        .then(res => {
+            User.logout()
+            this.$router.push({name: 'forum'})
+        })
+        .catch(error => this.errors = error.response.data.errors)
+        User.logout()
+        this.$router.push({name: 'forum'}) */
   }
 });
 
@@ -2752,7 +2741,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -2778,7 +2766,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2791,10 +2778,6 @@ __webpack_require__.r(__webpack_exports__);
         to: '/login',
         show: !User.loggedIn()
       }, {
-        title: 'Logout',
-        to: '/logout',
-        show: User.loggedIn()
-      }, {
         title: 'Ask Question',
         to: '/ask',
         show: User.loggedIn()
@@ -2802,8 +2785,17 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Category',
         to: '/category',
         show: User.admin()
+      }, {
+        title: 'Logout',
+        to: '/logout',
+        show: User.loggedIn()
       }]
     };
+  },
+  created: function created() {
+    EventBus.$on('logout', function () {
+      User.logout();
+    });
   }
 });
 
@@ -58095,12 +58087,14 @@ var render = function() {
             "div",
             { staticClass: "hidden-sm-and-down" },
             _vm._l(_vm.items, function(item) {
-              return _c(
-                "router-link",
-                { key: item.title, attrs: { to: item.to } },
-                [_c("v-btn", [_vm._v(_vm._s(item.title))])],
-                1
-              )
+              return item.show
+                ? _c(
+                    "router-link",
+                    { key: item.title, attrs: { to: item.to } },
+                    [_c("v-btn", [_vm._v(_vm._s(item.title))])],
+                    1
+                  )
+                : _vm._e()
             }),
             1
           )
@@ -115319,7 +115313,7 @@ var User = /*#__PURE__*/function () {
       axios.post('/api/auth/login', data).then(function (res) {
         return _this.responseAfterLogin(res);
       })["catch"](function (error) {
-        return console.log(error.response.data);
+        return console.log(error);
       });
     }
   }, {
@@ -115330,6 +115324,7 @@ var User = /*#__PURE__*/function () {
 
       if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
         _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+        window.location = '/forum';
       }
     }
   }, {
@@ -115347,12 +115342,12 @@ var User = /*#__PURE__*/function () {
     key: "loggedIn",
     value: function loggedIn() {
       return this.hasToken();
-      window.location = '/forum';
     }
   }, {
     key: "logout",
     value: function logout() {
       _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].clear();
+      window.location = '/forum';
     }
   }, {
     key: "name",
