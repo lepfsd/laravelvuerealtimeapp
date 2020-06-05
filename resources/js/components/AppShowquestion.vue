@@ -9,7 +9,7 @@
                     <span class="grey--text"> {{data.user}} said {{data.created_at}} </span>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn class="teal">5 replies</v-btn>
+                <v-btn text small color="primary">{{data.reply_count}} replies</v-btn>
             </v-card-title>
             <v-card-text v-html="body" ></v-card-text>
             <v-card-actions v-if="own">
@@ -43,7 +43,7 @@ export default {
         destroy() {
             axios.delete(`/api/question/${this.data.slug}`)
                 .then(res => this.$router.push('/forum'))
-                .catch(error => console.log(error.response.data))
+                .catch(error => console.log(error))
         },
         edit() {
             EventBus.$emit('startEditing')

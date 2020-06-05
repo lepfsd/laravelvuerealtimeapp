@@ -22,8 +22,8 @@
                             <v-row>
 
                                 <div class="my-2 mr-4">
-                                    <v-btn large color="teal" type="submit" v-if="editSlug">Update</v-btn>
-                                    <v-btn large color="teal" type="submit" v-else>Create</v-btn>
+                                    <v-btn text small color="primary" type="submit" v-if="editSlug">Update</v-btn>
+                                    <v-btn text small color="primary" type="submit" v-else>Create</v-btn>
                                 </div>
 
                             </v-row>

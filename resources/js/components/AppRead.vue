@@ -1,7 +1,9 @@
 <template>
     <div v-if="question">
         <app-editquestion v-if="editing" :data = question ></app-editquestion>
-        <app-showquestion :data=question v-else ></app-showquestion>       
+        <app-showquestion :data=question v-else ></app-showquestion>    
+
+        <app-replies :replies="question.replies" ></app-replies>
     </div>
 </template>
 
@@ -9,11 +11,13 @@
 
 import AppShowquestion from './AppShowquestion'
 import AppEditquestion from './AppEditquestion'
+import AppReplies from './AppReplies'
 
 export default {
     components: {
         AppShowquestion, 
-        AppEditquestion
+        AppEditquestion,
+        AppReplies
     },
     data() {
         return {

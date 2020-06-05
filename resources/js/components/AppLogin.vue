@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col
-          md="6"
+          md="4"
         >
           <v-text-field
             v-model="form.email"
@@ -14,7 +14,7 @@
         </v-col>
 
         <v-col
-          md="6"
+          md="4"
         >
           <v-text-field
             v-model="form.password"
@@ -29,12 +29,12 @@
       <v-row>
 
         <div class="my-2 mr-4">
-          <v-btn large color="green" type="submit">Login</v-btn>
+          <v-btn text small color="primary" type="submit">Login</v-btn>
         </div>
 
         <div class="my-2 mr-4">
           <router-link to="/signup">
-            <v-btn  large color="green">Signup</v-btn>
+            <v-btn text small color="primary">Signup</v-btn>
           </router-link>
         </div>
         

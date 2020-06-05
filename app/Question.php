@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 class Question extends Model
 {
     protected $fillable = array('title', 'slug', 'body', 'category_id', 'user_id');
+
+    protected $with = array('replies');
     
     public function user() 
     {

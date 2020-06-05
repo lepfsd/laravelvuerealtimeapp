@@ -44,12 +44,12 @@
         </v-row>
         <v-row>
             <div class="my-2 mr-4">
-                <v-btn large color="green" type="submit">Submit</v-btn>
+                <v-btn text small color="primary" type="submit">Submit</v-btn>
             </div>
 
             <div class="my-2 mr-4">
                 <router-link to="/login">
-                    <v-btn  large color="green">Login</v-btn>
+                    <v-btn text small color="primary">Login</v-btn>
                 </router-link>
             </div>
 

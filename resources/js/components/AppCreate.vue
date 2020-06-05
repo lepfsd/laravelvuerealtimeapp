@@ -30,7 +30,7 @@
             </v-row>
             <v-row>
                 <div class="my-2 mr-4">
-                    <v-btn large color="green" type="submit">Submit</v-btn>
+                    <v-btn text small color="primary" type="submit">Submit</v-btn>
                 </div>
 
             </v-row>
