@@ -13,16 +13,16 @@ import Vuetify from 'vuetify';
 
 Vue.use(Vuetify);
 
+import User from './Helper/User';
 
-import User from './Helper/User'
-
-
-window.User = User
-
-console.log(User.loggedIn())
-
+window.User = User;
 
 window.EventBus = new Vue();
+
+
+
+
+
 
 
 
@@ -57,3 +57,5 @@ const app = new Vue({
     vuetify: new Vuetify(),
     router
 });
+
+console.log(User.loggedIn());

@@ -1,8 +1,12 @@
 <template>
     <div>
         <v-container fluid grid-list-md>
+            
             <v-layout row-grap>
                 <v-flex xs8>
+                    <v-toolbar color="light-blue lighten-1" dark dense class="mt-2">
+                        <v-toolbar-title>questions</v-toolbar-title> 
+                    </v-toolbar>
                     <app-question v-for="question in questions" :key="question.path" :data=question>
 
                     </app-question>

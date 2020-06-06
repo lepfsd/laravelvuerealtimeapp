@@ -3,7 +3,10 @@
         <app-editquestion v-if="editing" :data = question ></app-editquestion>
         <app-showquestion :data=question v-else ></app-showquestion>    
 
-        <app-replies :replies="question.replies" ></app-replies>
+        <v-container>
+            <app-replies :question="question" ></app-replies>
+            <app-create-reply :questionSlug="question.slug"></app-create-reply>
+        </v-container>
     </div>
 </template>
 
@@ -12,12 +15,14 @@
 import AppShowquestion from './AppShowquestion'
 import AppEditquestion from './AppEditquestion'
 import AppReplies from './AppReplies'
+import AppCreateReply from './AppCreateReply'
 
 export default {
     components: {
         AppShowquestion, 
         AppEditquestion,
-        AppReplies
+        AppReplies,
+        AppCreateReply
     },
     data() {
         return {
