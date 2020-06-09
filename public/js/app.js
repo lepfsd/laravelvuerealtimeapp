@@ -2438,17 +2438,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [content],
+  props: ['content'],
   data: function data() {
     return {
       liked: this.content.liked,
       count: this.content.like_count
     };
-  },
-  computed: {
-    color: function color() {
-      return this.liked ? 'error' : 'red lighten-4';
-    }
   },
   methods: {
     likedIt: function likedIt() {
@@ -57975,7 +57970,7 @@ var render = function() {
       _c(
         "v-btn",
         {
-          attrs: { text: "", small: "", color: _vm.error },
+          attrs: { text: "", small: "", color: "error" },
           on: { click: _vm.likedIt }
         },
         [_vm._v(" " + _vm._s(_vm.count) + " fav ")]

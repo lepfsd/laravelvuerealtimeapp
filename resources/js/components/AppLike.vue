@@ -1,21 +1,16 @@
 <template>
     <div>
-        <v-btn text small :color="error" @click="likedIt" > {{count}} fav </v-btn>
+        <v-btn text small color="error" @click="likedIt" > {{count}} fav </v-btn>
     </div>
 </template>
 
 <script>
 export default {
-    props: [content],
+    props: ['content'],
     data() {
         return {
             liked: this.content.liked,
             count: this.content.like_count
-        }
-    },
-    computed: {
-        color() {
-            return this.liked ? 'error' : 'red lighten-4'
         }
     },
     methods: {
