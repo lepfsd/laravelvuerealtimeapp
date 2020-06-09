@@ -19,7 +19,7 @@ window.User = User;
 
 window.EventBus = new Vue();
 
-
+console.log(User.loggedIn());
 
 
 
@@ -58,4 +58,4 @@ const app = new Vue({
     router
 });
 
-console.log(User.loggedIn());
+
