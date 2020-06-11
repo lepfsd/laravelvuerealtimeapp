@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Like;
 use App\Reply;
+use App\Events\LikeEvent;
 
 class LikeController extends Controller
 {
@@ -25,15 +26,15 @@ class LikeController extends Controller
         $reply->like()->create([
             'user_id' => auth()->id()
         ]);
+        \broadcast(new LikeEvent($reply->id, 1))->toOthers();
 
-        return response('created', Response::HTTP_OK);
     }
 
     public function unLitkeIt(Reply $reply)
     {
         
         $reply->like()->where('user->id', auth()->id())->first()->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
+        \broadcast(new LikeEvent($reply->id, 0))->toOthers();
+        
     }
 }

@@ -30,6 +30,10 @@ export default {
             EventBus.$on('newReply', (reply) => {
                 this.content.unshift(reply)
             })
+            Echo.private('App.User.' + User.id())
+                .notification((notification) => {
+                    this.content.push(notification.reply)
+                });
             EventBus.$on('deleteReply', (index) => {
                 axios.delete(`/api/question/${this.question.slug}/reply/${this.content[index].id}`)
                     .then(res => {

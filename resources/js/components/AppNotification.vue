@@ -52,6 +52,7 @@ export default {
         getNotifications() {
             axios.post('/api/notifications')
                 .then( res => {
+                    console.log(res)
                     this.read = res.data.read
                     this.unread = res.data.unread
                     this.unreadCount = res.data.unread.length
