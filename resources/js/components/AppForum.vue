@@ -10,6 +10,14 @@
                     <app-question v-for="question in questions" :key="question.path" :data=question>
 
                     </app-question>
+
+                    <div class="text-center">
+                        <v-pagination
+                            v-model="meta.current_page"
+                            :length="meta.total"
+                            @input="changePage"
+                        ></v-pagination>
+                    </div>
                 </v-flex>
                 <v-flex xs4>
                     <app-sidebar></app-sidebar>
@@ -31,13 +39,28 @@ export default {
     },
     data() {
         return {
-            questions: {}
+            questions: {},
+            meta: {},
+            page: 2
         }
     },
     created() {
-        axios.get('/api/question')
-            .then( res => this.questions = res.data.data)
-            .catch(error => console.log(error.response.data))
+        this.fetchQuestions()
+    },
+    methods: {    
+        fetchQuestions(page) {
+            let url = page ? `/api/question?page=${page}` : `/api/question`
+            axios.get(url)
+                .then( res => {
+                    this.questions = res.data.data
+                    this.meta = res.data.meta
+                })
+                .catch(error => console.log(error.response.data))
+        },
+        changePage(page) {
+            this.fetchQuestions(page)
+        }
+        
     }
 }
 </script>
